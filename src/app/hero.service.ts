@@ -8,7 +8,7 @@ import {catchError, tap} from 'rxjs/operators';
 
 @Injectable()
 export class HeroService {
-  private heroesUrl = 'api/heroes';
+  private heroesUrl = 'http://localhost:8080/heroes';
   private httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
