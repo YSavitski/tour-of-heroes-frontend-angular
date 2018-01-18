@@ -18,6 +18,7 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from './authentication.service';
+import { CanActivatedAuthGuardService } from './can-activated-auth-guard.service';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { AuthenticationService } from './authentication.service';
   providers: [
     HeroService,
     MessageService,
-    AuthenticationService
+    AuthenticationService,
+    CanActivatedAuthGuardService
   ],
   bootstrap: [AppComponent]
 })

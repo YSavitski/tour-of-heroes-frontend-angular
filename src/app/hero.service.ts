@@ -5,21 +5,26 @@ import {of} from 'rxjs/observable/of';
 import {MessageService} from './message.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, tap} from 'rxjs/operators';
+import {AuthenticationService} from './authentication.service';
 
 @Injectable()
 export class HeroService {
   private heroesUrl = 'http://localhost:8080/heroes';
   private httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json'})
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.authenticationService.getToken()
+    })
   };
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private authenticationService: AuthenticationService
   ) { }
 
   getHeroes(): Observable<Hero[]> {
-    return this.http.get<Hero[]>(this.heroesUrl)
+    return this.http.get<Hero[]>(this.heroesUrl, this.httpOptions)
       .pipe(
         tap(_ => this.log(`fetched heroes`)),
         catchError(this.handleError('getHeroes', []))
@@ -28,7 +33,7 @@ export class HeroService {
 
   getHero(id: number): Observable<Hero> {
     const url = `${this.heroesUrl}/${id}`;
-    return this.http.get<Hero>(url)
+    return this.http.get<Hero>(url, this.httpOptions)
       .pipe(
         tap(_ => this.log(`fetched hero id=${id}`)),
         catchError(this.handleError<Hero>(`getHero id=${id}`))
@@ -65,7 +70,7 @@ export class HeroService {
   searchHeroesByName(name: string): Observable<Hero[]> {
     if(!name.trim()) { return of([]); }
 
-    return this.http.get<Hero[]>(`${this.heroesUrl}/?name=${name}`)
+    return this.http.get<Hero[]>(`${this.heroesUrl}/?name=${name}`, this.httpOptions)
       .pipe(
         tap(_ => this.log(`found heroes matching "${name}"`)),
         catchError(this.handleError<Hero[]>('searchHeroesByName', []))
