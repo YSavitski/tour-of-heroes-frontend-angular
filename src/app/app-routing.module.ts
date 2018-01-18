@@ -3,8 +3,13 @@ import {RouterModule, Routes} from '@angular/router';
 import {HeroesComponent} from './heroes/heroes.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {HeroDetailComponent} from './hero-detail/hero-detail.component';
+import {HomeComponent} from './home/home.component';
 
 const routes: Routes = [
+  {
+    path: 'home',
+    component: HomeComponent
+  },
   {
     path: '',
     redirectTo: '/dashboard',

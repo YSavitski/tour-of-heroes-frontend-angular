@@ -16,6 +16,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {InMemoryDataService} from './InMemoryDataService';*/
 import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { AuthenticationService } from './authentication.service';
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import { HomeComponent } from './home/home.component';
     MessagesComponent,
     DashboardComponent,
     HeroSearchComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,8 @@ import { HomeComponent } from './home/home.component';
   ],
   providers: [
     HeroService,
-    MessageService
+    MessageService,
+    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })
